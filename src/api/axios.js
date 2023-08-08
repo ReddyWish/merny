@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "https://merny-api.onrender.com";
+export const BASE_URL = "https://merny-api.onrender.com";
 // export const BASE_URL = "http://localhost:3600";
 
 export default axios.create({
