@@ -5,12 +5,14 @@ import PublicFooter from "./public/PublicFooter.jsx";
 
 const DashLayout = () => {
   return (
-    <>
+      <div >
       <PublicHeader/>
+        <div className="flex flex-col justify-content items-center">
       <DashHeader/>
         <Outlet/>
       <PublicFooter/>
-    </>
+        </div>
+    </div>
   );
 }
 

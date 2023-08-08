@@ -22,6 +22,8 @@ import Welcome from "./features/auth/Welcome.jsx";
 import PublicPost from "./components/public/PublicPost.jsx";
 import Contacts from "./components/Contacts.jsx";
 import PrivacyPolicy from "./components/PrivacyPolicy.jsx";
+import UserProfile from "./features/users/UserProfile.jsx";
+import UserEditProfile from "./features/users/UserEditProfile.jsx";
 
 
 function App() {
@@ -44,6 +46,8 @@ function App() {
 
                 <Route path="users">
                   <Route index element={<UsersList/>}/>
+                  <Route path=":id/profile" element={<UserProfile/>}/>
+                  <Route path=":id/profile/edit" element={<UserEditProfile/>}/>
                   <Route path=":id" element={<UsersPosts/>}/>
                 </Route>
 
@@ -54,7 +58,6 @@ function App() {
                   <Route path="new" element={<NewPost/>}/>
                   <Route path="mine" element={<MyPosts/>}/>
                 </Route>
-
               </Route>
             </Route>
           </Route>

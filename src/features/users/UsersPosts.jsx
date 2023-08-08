@@ -7,17 +7,20 @@ import { selectUsersPosts } from "./usersSlice.js";
 import { Link } from "react-router-dom";
 import { deletePost } from "../posts/postsSlice.js";
 import { deletePostOfTheUser } from "./usersSlice.js";
-import jwt_decode from "jwt-decode";
+import useCurrentUser from "../../hooks/useCurrentUser.js";
 
 function UsersPosts() {
   const dispatch = useDispatch()
-  const accessToken = window.localStorage.getItem("token");
-  const decoded = accessToken ? jwt_decode(accessToken) : undefined;
-  const roles = decoded?.UserInfo?.roles || []
+
+  const currentUser = useCurrentUser();
+  const currentUserId = currentUser.id
+  const userIsAdmin = currentUser.admin
+  const userIsEditor = currentUser.editor
   const { id } = useParams();
+
   const usersPosts = useSelector(selectUsersPosts)
   const user = useSelector((state) => selectUserById(state, id))
-  const eligibleToDelete = roles.includes(5150) || roles.includes(1984)
+  const eligibleToDelete = userIsAdmin || userIsEditor
 
   useEffect(() => {
     dispatch(getUserPosts(id))
@@ -38,10 +41,10 @@ function UsersPosts() {
     content = (
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          {`User ${user.username} has no posts yet 🫤`}
+          {currentUserId === id ? "You have no posts yet" : `User ${user.username} has no posts yet 🫤`}
         </h2>
         <p className="text-gray-600 dark:text-gray-400">
-          Don't worry, {user.username} will share some exciting posts soon!
+          {currentUserId === id ? "Do not hesitate to share your ideas 🚀" : `Don't worry, ${user.username} will share some exciting posts soon!`}
         </p>
       </div>
     )

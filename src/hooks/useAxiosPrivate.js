@@ -2,13 +2,10 @@ import { axiosPrivate } from "../api/axios.js";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { requestNewAccessToken } from "../features/auth/authSlice.js";
-// import { selectAccessToken } from "../features/auth/authSlice.js";
-
 
 const useAxiosPrivate = () => {
   const dispatch = useDispatch()
   const accessToken = window.localStorage.getItem("token");
-
 
   useEffect(() => {
 

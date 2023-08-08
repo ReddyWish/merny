@@ -1,14 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../../api/axios.js";
 
-
 const initialState = {
   users: [],
   status: "idle",
   error: null,
   userPosts: []
 }
-
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await axiosPrivate.get("/users")
@@ -21,10 +19,18 @@ export const getUserPosts = createAsyncThunk("users/getUserPosts", async (userId
 });
 
 export const deleteUser = createAsyncThunk('users/deleteUser', async (id) => {
-  // const { id } = initialPost;
   try {
     console.log(id)
     const { data } = await axiosPrivate.delete("/users", { data: id } )
+    return data
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+export const updateUser = createAsyncThunk('users/updateUser', async (initialUser) => {
+  try {
+    const { data } = await axiosPrivate.patch("/users", initialUser, { headers: { "Content-Type": "multipart/form-data" } } )
     return data
   } catch (err) {
     console.error(err)
@@ -58,6 +64,11 @@ const usersSlice = createSlice({
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.users = state.users.filter(user => user._id !== action.payload.id);
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        const { _id } = action.payload
+        const users = state.users.filter(user => user._id !== _id);
+        state.users = [...users, action.payload];
       })
   }
 })

@@ -3,6 +3,7 @@ import useOutsideClick from "../../hooks/useOutsideClick.js";
 import { Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout.js";
 import { useNavigate } from "react-router-dom";
+import useCurrentUser from "../../hooks/useCurrentUser.js";
 
 const PublicHeader = () => {
   const logout = useLogout();
@@ -10,6 +11,8 @@ const PublicHeader = () => {
   const ref = useRef()
   const accessToken = localStorage.getItem("token")
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const currentUser = useCurrentUser();
+  const id = currentUser.id;
 
   useOutsideClick(ref, () => setIsMobileMenuOpen(false))
 
@@ -72,10 +75,15 @@ const PublicHeader = () => {
                           className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                           >view authors</Link>
                   </li>
+                  {/*<li>*/}
+                  {/*  <Link to="/dash/posts/mine"*/}
+                  {/*        className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">My*/}
+                  {/*    posts</Link>*/}
+                  {/*</li>*/}
                   <li>
-                    <Link to="/dash/posts/mine"
+                    <Link to={`/dash/users/${id}/profile`}
                           className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">My
-                      posts</Link>
+                      profile</Link>
                   </li>
                   <li>
                     <Link to="/public/2"

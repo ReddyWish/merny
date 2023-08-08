@@ -4,22 +4,16 @@ import { fetchPosts } from "./postsSlice.js";
 import { selectAllPosts } from "./postsSlice.js";
 import jwt_decode from "jwt-decode";
 import { Link } from "react-router-dom";
+import useCurrentUser from "../../hooks/useCurrentUser.js";
 
 function MyPosts() {
   const dispatch = useDispatch();
-  const token = window.localStorage.getItem("token");
   const posts = useSelector(selectAllPosts);
-  console.log(posts)
+  const currentUser = useCurrentUser()
 
-  const decoded = token ? jwt_decode(token) : undefined;
-
-  const id = decoded?.UserInfo?.id || ""
-
-  console.log(id)
+  const id = currentUser.id
 
   const myPosts = posts.filter(post => post.user === id)
-
-  console.log(myPosts)
 
 
   useEffect(() => {
@@ -43,7 +37,7 @@ function MyPosts() {
     )
   } else {
     content = (
-      <div className="flex justify-center items-center">
+      <div className="flex justify-content">
         <div className="max-w-screen-lg w-full mx-auto overflow-x-auto">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

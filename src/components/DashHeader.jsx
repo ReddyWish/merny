@@ -1,13 +1,11 @@
-import jwt_decode from "jwt-decode";
+import useCurrentUser from "../hooks/useCurrentUser.js";
 
 const DashHeader = () => {
-  const token = window.localStorage.getItem("token");
-  const decoded = token ? jwt_decode(token) : undefined;
-
-  const name = decoded?.UserInfo?.username || ""
-  const roles = decoded?.UserInfo?.roles || []
-  const editor = roles.find(role => role === 1984)
-  const admin = roles.find(role => role === 5150)
+  const currentUser = useCurrentUser();
+  const token = currentUser.token
+  const name = currentUser.name
+  const editor = currentUser.editor
+  const admin = currentUser.admin
   let content
   if (!token) {
     content = (

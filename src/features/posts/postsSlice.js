@@ -15,15 +15,15 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 })
 
 export const addNewPost = createAsyncThunk('posts/addNewPost', async (initialPost) => {
-  const response = await axiosPrivate.post(POSTS_URL, initialPost)
+  const response = await axiosPrivate.post(POSTS_URL, initialPost, { headers: { "Content-Type": "multipart/form-data" } })
   console.log(response.data)
   return response.data
 })
 
 export const updatePost = createAsyncThunk('posts/updatePost', async (initialPost) => {
-  // const { id } = initialPost;
   try {
-    const response = await axiosPrivate.patch(POSTS_URL, initialPost)
+    const response = await axiosPrivate.patch(POSTS_URL, initialPost, { headers: { "Content-Type": "multipart/form-data" } })
+    console.log(response.data)
     return response.data
   } catch (err) {
     console.error(err)
@@ -31,6 +31,7 @@ export const updatePost = createAsyncThunk('posts/updatePost', async (initialPos
 })
 
 export const deletePost = createAsyncThunk('posts/deletePost', async (id) => {
+  console.log(id)
   try {
     const { data } = await axiosPrivate.delete(`${POSTS_URL}/${id}`, id)
     return data

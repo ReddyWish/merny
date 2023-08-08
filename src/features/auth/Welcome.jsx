@@ -23,11 +23,11 @@ const Welcome = () => {
   }, [dispatch])
 
   const content = (
-    <section>
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <section className="flex justify-content items-center">
+    <div>
       <PublicPosts/>
-    </div>
       <Pagination/>
+    </div>
     </section>
   )
   return content;

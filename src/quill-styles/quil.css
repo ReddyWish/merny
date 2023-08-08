@@ -1,0 +1,13 @@
+.my-quill-container {
+    background-color: #f7fafc;
+    border: 1px solid #e2e8f0;
+    padding: 6px;
+}
+
+/* Style the Quill editor content */
+.my-quill-container .ql-editor {
+    min-height: 120px;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.6;
+}
