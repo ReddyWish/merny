@@ -16,7 +16,9 @@ function Comment({ comment }) {
   const [openTextArea, setOpenTextArea] = useState(false);
   const [commentText, setCommentText] = useState(comment.comment)
   const user = useSelector((state) => selectUserById(state, comment.author))
-  const formattedDate = format(new Date(comment?.createdAt), 'MMMM dd, yyyy');
+  const formattedDate = comment && format(new Date(comment?.createdAt), 'MMMM dd, yyyy');
+  console.log(comment)
+  console.log(comment?.createdAt)
   const dispatch = useDispatch()
   const ref = useRef()
   useOutsideClick(ref, () => setIsDropdownOpen(false))
@@ -67,8 +69,8 @@ function Comment({ comment }) {
                 src={`${BASE_URL}/uploads/avatars/${user?.avatar}`} alt="Jese Leos"/>
                 {user?.username}</p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                <time dateTime="2022-02-08"
-                      title="February 8th, 2022">{formattedDate}
+                <time dateTime={formattedDate}
+                      title={formattedDate}>{formattedDate}
                 </time>
               </p>
             </div>

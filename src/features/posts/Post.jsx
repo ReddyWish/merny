@@ -77,7 +77,7 @@ const Post = () => {
                       <Link to={`/dash/users/${user?._id}/profile`} rel="author" className="text-xl font-bold text-gray-900 dark:text-white">{user?.username}</Link>
                       <p className="text-base font-light text-gray-500 dark:text-gray-400">{user?.profession}</p>
                       <p className="text-base font-light text-gray-500 dark:text-gray-400">
-                        {post && <time dateTime={formattedDate} title="February 8th, 2022">{formattedDate}</time>}
+                        {post && <time dateTime={formattedDate} title={formattedDate}>{formattedDate}</time>}
                       </p>
                     </div>
                 </div>
